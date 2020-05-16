@@ -3,18 +3,19 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 
 public class JsonBuilder extends JsonValue {
     private final CharScanner sc;
     private final JsonValue v;
 
 
-    public JsonBuilder(File f) throws FileNotFoundException {
+    public JsonBuilder(File f) throws FileNotFoundException, ParseException {
         sc = new CharScanner(f);
         this.v = parseValue();
     }
 
-    public JsonValue parseValue() {
+    public JsonValue parseValue() throws ParseException {
         while (sc.hasNext()) {
             char c = sc.peek();
             if (c == '"') {
@@ -23,11 +24,8 @@ public class JsonBuilder extends JsonValue {
             if (c == '[') {
                 return parseArray();
             }
-            if (Character.isDigit(c)) {
+            if (Character.isDigit(c) || c == '-') {
                 return parseNumber();
-            } else if (c == '-') {
-                sc.next();
-                return parseNumber().neg();
             }
             if (c == '{') {
                 return parseObject();
@@ -36,7 +34,7 @@ public class JsonBuilder extends JsonValue {
         return null;   //TODO EXCEPTION???
     }
 
-    public JsonArray parseArray() {
+    public JsonArray parseArray() throws ParseException {
         JsonArray list = new JsonArray(); //TODO check other implementations of List
         sc.next();
         while (sc.peek() != ']') {
@@ -49,7 +47,7 @@ public class JsonBuilder extends JsonValue {
         return list;
     }
 
-    public JsonObject parseObject() {
+    public JsonObject parseObject() throws ParseException {
         JsonObject dic = new JsonObject();
         char c;     //TODO מחיקת אגף ימין לא משפיעה על תוצאה
         String key = "";
@@ -80,17 +78,16 @@ public class JsonBuilder extends JsonValue {
         return new JsonString(str);
     }
 
-    public JsonNumber parseNumber() {
+    public JsonNumber parseNumber() throws ParseException {
         String s = "";
         //s+= sc.next();
         char c;
-        while (sc.hasNext() && (Character.isDigit(c = sc.peek()))) {
+        while (sc.hasNext() && (Character.isDigit(c = sc.peek()) || c == '.' || c == '-' || c == 'e' || c == 'E')) {
             c = sc.next();
             s += c;
         }
         return new JsonNumber(s);
     }
-
 
     @Override
     public JsonValue get(int i) {
