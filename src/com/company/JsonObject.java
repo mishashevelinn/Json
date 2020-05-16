@@ -1,23 +1,23 @@
 package com.company;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class JsonObject extends JsonValue {
     private Map<String, JsonValue> o;
 
-    public JsonObject() {
-        o = new HashMap<String, JsonValue>() {
-        };
+    public JsonObject(){
+        o= new HashMap<String, JsonValue>();
 
     }
 
-    public Object put(String s, JsonValue Jv) {
+    public Object put(String s, JsonValue Jv){
         return o.put(s, Jv);
     }
 
     @Override
-    public JsonNumber get(int i) {
+    public JsonValue get(int i) {
         return null; // o.get((o.keySet().toArray())[i]); // return value by index
     }
 
@@ -28,13 +28,6 @@ public class JsonObject extends JsonValue {
 
     @Override
     public String toString() {
-        String buf = new String();
-        buf += "{";
-        for (String key : o.keySet()) {
-            buf += "<" + key + ":" + o.get(key) + ">";
-
-        }
-        buf += "}";
-        return buf;
+        return "JsonObject"+o;
     }
 }
