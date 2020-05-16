@@ -3,9 +3,9 @@ package com.company;
 public class JsonNumber extends JsonValue {
     private Number k;
 
-    public JsonNumber(String k) {
-        int i = Integer.parseInt(k);
-        this.k = i;
+    public JsonNumber(String k){
+        int i= Integer.parseInt(k);
+        this.k=i;
     }
 
     public JsonNumber neg() {
@@ -15,10 +15,8 @@ public class JsonNumber extends JsonValue {
 
 
     @Override
-    public JsonNumber get(int i) {
-        Integer num = i;
-        JsonNumber jnum = new JsonNumber(num.toString());
-        return jnum;
+    public JsonValue get(int i) {
+        return null;
     }
 
     @Override

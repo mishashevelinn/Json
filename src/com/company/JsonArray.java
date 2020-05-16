@@ -7,12 +7,12 @@ import java.util.List;
 public class JsonArray extends JsonValue {
     public List<JsonValue> a;
 
-    public JsonArray() {
+    public JsonArray(){
         a = new ArrayList();
     }
 
-    public boolean add(JsonValue val) {
-        return a.add(val);
+    public boolean add(JsonValue val){
+       return a.add(val);
     }
 
     @Override
@@ -27,7 +27,9 @@ public class JsonArray extends JsonValue {
 
     @Override
     public String toString() {
-        return "JsonArray" + a;
+        return "JsonArray" +
+                 a;
+
     }
 }
 
