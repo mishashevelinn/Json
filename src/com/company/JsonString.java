@@ -19,6 +19,6 @@ public class JsonString extends JsonValue {
 
     @Override
     public String toString() {
-        return s;
+        return "<"+s+">";
     }
 }

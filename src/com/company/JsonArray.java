@@ -27,7 +27,7 @@ public class JsonArray extends JsonValue {
 
     @Override
     public String toString() {
-        return "JsonArray" + a;
+        return a.toString();
     }
 }
 

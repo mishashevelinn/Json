@@ -1,12 +1,14 @@
 package com.company;
 
 public class JsonNumber extends JsonValue {
-    private Number k;
-
+    private Integer k;
+    private Float q;
     public JsonNumber(String k) {
         int i = Integer.parseInt(k);
         this.k = i;
+
     }
+
 
     public JsonNumber neg() {
         JsonNumber negJN = new JsonNumber(String.valueOf(k.intValue() * (-1)));
@@ -24,6 +26,10 @@ public class JsonNumber extends JsonValue {
     @Override
     public JsonValue get(String s) {
         return null;
+    }
+
+    public Float getFloatQ() {
+        return q;
     }
 
     @Override

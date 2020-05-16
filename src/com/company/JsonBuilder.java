@@ -29,6 +29,7 @@ public class JsonBuilder extends JsonValue {
                 sc.next();
                 return parseNumber().neg();
             }
+
             if (c == '{') {
                 return parseObject();
             }
@@ -51,6 +52,7 @@ public class JsonBuilder extends JsonValue {
 
     public JsonObject parseObject() {
         JsonObject dic = new JsonObject();
+
         char c;     //TODO מחיקת אגף ימין לא משפיעה על תוצאה
         String key = "";
         while ((c = sc.peek()) != '}') {
@@ -84,12 +86,13 @@ public class JsonBuilder extends JsonValue {
         String s = "";
         //s+= sc.next();
         char c;
-        while (sc.hasNext() && (Character.isDigit(c = sc.peek()))) {
+        while (sc.hasNext() && (Character.isDigit(sc.peek())))  {
             c = sc.next();
             s += c;
         }
         return new JsonNumber(s);
     }
+
 
 
     @Override
