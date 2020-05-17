@@ -27,7 +27,13 @@ public class JsonArray extends JsonValue {
 
     @Override
     public String toString() {
-        return "JsonArray" + a;
+        String buf = "[";
+        for (int i=0; i<a.size(); i++) {
+            if (i!=0) buf+= ',';
+            buf += "<" + a.get(i)  + ">";
+        }
+        buf += "]";
+        return buf;
     }
 }
 
