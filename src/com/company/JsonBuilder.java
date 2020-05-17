@@ -7,15 +7,20 @@ import java.text.ParseException;
 
 public class JsonBuilder extends JsonValue {
     private final CharScanner sc;
-    private final JsonValue v;
+    private JsonValue v;
 
 
     public JsonBuilder(File f) throws FileNotFoundException, ParseException {
         sc = new CharScanner(f);
+        try{
         this.v = parseValue();
     }
+        catch (JsonSyntaxException e){
+            e.printStackTrace();
+        }
+    }
 
-    public JsonValue parseValue() throws ParseException {
+    public JsonValue parseValue() throws ParseException, JsonSyntaxException {
         while (sc.hasNext()) {
             char c = sc.peek();
             if (c == '"') {
@@ -30,24 +35,28 @@ public class JsonBuilder extends JsonValue {
             if (c == '{') {
                 return parseObject();
             }
+            else throw new JsonSyntaxException("First char of one of values in invalid");
         }
         return null;   //TODO EXCEPTION???
     }
 
-    public JsonArray parseArray() throws ParseException {
-        JsonArray list = new JsonArray(); //TODO check other implementations of List
+    public JsonArray parseArray() throws ParseException, JsonSyntaxException {
+        JsonArray list = new JsonArray();
+        int counter = 0;
         sc.next();
         while (sc.peek() != ']') {
             list.add(parseValue());
             if (sc.peek() == ',') {
                 sc.next();
             }
+            counter++;
+            if(counter>10000)throw new JsonSyntaxException("']' expected");
         }
         sc.next();
         return list;
     }
 
-    public JsonObject parseObject() throws ParseException {
+    public JsonObject parseObject() throws ParseException, JsonSyntaxException {
         JsonObject dic = new JsonObject();
         char c;
         sc.next();
@@ -70,11 +79,20 @@ public class JsonBuilder extends JsonValue {
         return dic;
     }
 
-    public JsonString parseString() {
+    public JsonString parseString() throws JsonSyntaxException {
         String str = "";
-        char c = sc.next();
+        int charCounter = 0;
+        char c;
+        sc.next();
         while ((c = sc.next()) != '"') {
+            if(c == '\\'){
+                c = sc.next();
+            }
             str += c;
+            charCounter++;
+            if(charCounter>10000){
+                throw new JsonSyntaxException("Illegal line and in string literal");
+            }
         }
         return new JsonString(str);
     }
