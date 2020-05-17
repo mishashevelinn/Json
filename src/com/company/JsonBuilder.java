@@ -15,7 +15,7 @@ public class JsonBuilder extends JsonValue {
 //        try{
         this.v = parseValue();
 //    }
-//        catch (JsonSyntaxException e){
+//        catch (JsonSyntaxException e){    //TODO FIX IT
 //            e.printStackTrace();
 //        }
 //        catch (ParseException e){
@@ -107,7 +107,7 @@ public class JsonBuilder extends JsonValue {
         String s = "";
         //s+= sc.next();
         char c;
-        while (sc.hasNext() && (Character.isDigit(c = sc.peek()) || c == '.' || c == '-' || c=='+' || c == 'e' || c == 'E')) {
+        while (sc.hasNext() && (Character.isDigit(c = sc.peek()) || Character.isAlphabetic(c) || c == '.' || c == '-' || c=='+' || c == 'e' || c == 'E')) {
             c = sc.next();
             s += c;
         }

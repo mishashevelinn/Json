@@ -48,6 +48,9 @@ public class JsonNumber extends JsonValue {
         }
         for (int i = 1; i < str.length(); i++) {
             char test = str.charAt(i);
+            if (Character.isAlphabetic(test) && test!='E' && test!='e'){
+                throw new JsonSyntaxException("Letters except 'e'/'E' for powers of ten are inappropriate");
+            }
             if ((test == 'E') || test == 'e') {
                 EIndex = i;
                 Ecounter++;
@@ -61,7 +64,7 @@ public class JsonNumber extends JsonValue {
         if (SignCounter == 1) {
             char sign = str.charAt(EIndex+1);
             if((Ecounter != 1) || ((sign != '-') && (sign != '+'))){
-                throw new JsonSyntaxException("Sign in the middle of numer");
+                throw new JsonSyntaxException("Sign in the middle of number");
             }
         }
     }
