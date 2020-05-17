@@ -49,7 +49,8 @@ public class JsonBuilder extends JsonValue {
 
     public JsonObject parseObject() throws ParseException {
         JsonObject dic = new JsonObject();
-        char c;     //TODO מחיקת אגף ימין לא משפיעה על תוצאה
+        char c;
+        sc.next();
         String key = "";
         while ((c = sc.peek()) != '}') {
             if (c == ' ' || c == '"') {
@@ -82,7 +83,7 @@ public class JsonBuilder extends JsonValue {
         String s = "";
         //s+= sc.next();
         char c;
-        while (sc.hasNext() && (Character.isDigit(c = sc.peek()) || c == '.' || c == '-' || c == 'e' || c == 'E')) {
+        while (sc.hasNext() && (Character.isDigit(c = sc.peek()) || c == '.' || c == '-' || c=='+' || c == 'e' || c == 'E')) {
             c = sc.next();
             s += c;
         }
