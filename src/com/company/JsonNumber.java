@@ -67,13 +67,13 @@ public class JsonNumber extends JsonValue {
     }
 
     @Override
-    public JsonNumber get(int i) {
-        return null;
+    public JsonValue get(int i) throws JsonQueryException {
+        throw new JsonQueryException("JsonNumber cannot resolve method 'get(int)'");
     }
 
     @Override
-    public JsonValue get(String s) {
-        return null;
+    public JsonValue get(String s) throws JsonQueryException {
+        throw new JsonQueryException("JsonNumber cannot resolve method 'get(String)'");
     }
 
     @Override

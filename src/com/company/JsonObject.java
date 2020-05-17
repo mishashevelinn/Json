@@ -17,12 +17,13 @@ public class JsonObject extends JsonValue {
     }
 
     @Override
-    public JsonNumber get(int i) {
-        return null; // o.get((o.keySet().toArray())[i]); // return value by index
+    public JsonValue get(int i) throws JsonQueryException {
+        throw new JsonQueryException("JsonObject cannot resolve method 'get(int)'");
+
     }
 
     @Override
-    public JsonValue get(String s) { // return value by key
+    public JsonValue get(String s) {
         return o.get(s);
     }
 

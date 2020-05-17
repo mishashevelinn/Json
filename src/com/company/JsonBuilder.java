@@ -10,18 +10,21 @@ public class JsonBuilder extends JsonValue {
     private JsonValue v;
 
 
-    public JsonBuilder(File f) throws FileNotFoundException, ParseException {
+    public JsonBuilder(File f) throws FileNotFoundException, JsonSyntaxException {
         sc = new CharScanner(f);
-        try{
+//        try{
         this.v = parseValue();
-    }
-        catch (JsonSyntaxException e){
-            e.printStackTrace();
-        }
+//    }
+//        catch (JsonSyntaxException e){
+//            e.printStackTrace();
+//        }
+//        catch (ParseException e){
+//            throw new JsonSyntaxException("sdfsdf");
+//        }
     }
 
-    public JsonValue parseValue() throws ParseException, JsonSyntaxException {
-        while (sc.hasNext()) {
+    public JsonValue parseValue() throws JsonSyntaxException {
+        if (sc.hasNext()) {
             char c = sc.peek();
             if (c == '"') {
                 return parseString();   //["asd", 1]
@@ -35,12 +38,11 @@ public class JsonBuilder extends JsonValue {
             if (c == '{') {
                 return parseObject();
             }
-            else throw new JsonSyntaxException("First char of one of values in invalid");
         }
-        return null;   //TODO EXCEPTION???
+        throw new JsonSyntaxException("First char of one of values in invalid");
     }
 
-    public JsonArray parseArray() throws ParseException, JsonSyntaxException {
+    public JsonArray parseArray() throws JsonSyntaxException {
         JsonArray list = new JsonArray();
         int counter = 0;
         sc.next();
@@ -56,7 +58,8 @@ public class JsonBuilder extends JsonValue {
         return list;
     }
 
-    public JsonObject parseObject() throws ParseException, JsonSyntaxException {
+    public JsonObject parseObject() throws JsonSyntaxException {
+        int counter = 0;
         JsonObject dic = new JsonObject();
         char c;
         sc.next();
@@ -74,7 +77,10 @@ public class JsonBuilder extends JsonValue {
             if ((sc.peek()) == ',') {
                 sc.next();
             }
+            counter++;
+            if(counter>10000) throw new JsonSyntaxException("'}' expected");
         }
+
         sc.next();
         return dic;
     }
@@ -97,7 +103,7 @@ public class JsonBuilder extends JsonValue {
         return new JsonString(str);
     }
 
-    public JsonNumber parseNumber() throws ParseException {
+    public JsonNumber parseNumber() throws JsonSyntaxException {
         String s = "";
         //s+= sc.next();
         char c;
@@ -105,18 +111,23 @@ public class JsonBuilder extends JsonValue {
             c = sc.next();
             s += c;
         }
-        return new JsonNumber(s);
+        try {
+            return new JsonNumber(s);
+        }
+        catch (ParseException e){
+            throw new JsonSyntaxException("Number format error");
+        }
     }
 
     @Override
-    public JsonValue get(int i) {
-        return null;
+    public JsonValue get(int i) throws JsonQueryException {
+        return v.get(i);
     }
 
     @Override
-    public JsonValue get(String s) {
+    public JsonValue get(String s) throws JsonQueryException {
 
-        return null;
+        return v.get(s);
     }
 
     @Override

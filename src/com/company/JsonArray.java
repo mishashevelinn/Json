@@ -11,18 +11,25 @@ public class JsonArray extends JsonValue {
         a = new ArrayList();
     }
 
-    public boolean add(JsonValue val) {
-        return a.add(val);
+    public void add(JsonValue val) {
+         a.add(val);
     }
 
     @Override
-    public JsonValue get(int i) {
-        return a.get(i);
+    public JsonValue get(int i) throws JsonQueryException {
+        if((i>=0) && (i<this.a.size())){
+            return a.get(i);
+        }
+        else{
+            throw new JsonQueryException("JsonList index out of range");
+        }
+
     }
 
     @Override
-    public JsonValue get(String s) {
-        return null;
+    public JsonValue get(String s) throws JsonQueryException {
+        throw new JsonQueryException("JsonArray cannot resolve method 'get(String)'");
+
     }
 
     @Override
