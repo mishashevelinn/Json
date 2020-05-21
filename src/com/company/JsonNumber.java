@@ -46,6 +46,11 @@ public class JsonNumber extends JsonValue {
         if ((first != '-') && (!Character.isDigit(first))) {
             throw new JsonSyntaxException("First char of number has to be digit or '-'");
         }
+        if (first == '0') {
+            if(str.charAt(1) != '.'){
+                throw new JsonSyntaxException("After '0' expected '.'");
+            }
+        }
         for (int i = 1; i < str.length(); i++) {
             char test = str.charAt(i);
             if (Character.isAlphabetic(test) && test!='E' && test!='e'){
