@@ -82,5 +82,4 @@ public class CharScanner {
         read();
         return (result);
     }
-
 }
