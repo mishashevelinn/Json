@@ -23,7 +23,7 @@ public class JsonNumber extends JsonValue {
         }
         if (new_k.contains("-") || new_k.contains("+")) Dflag = true;  //if it is we work on positive part
         if (Dflag) {
-            d = new Double(new_k);
+            d = Double.valueOf(new_k);
             this.k = d;
         } else this.k = NumberFormat.getInstance().parse(new_k);  //we detect the exact class of the number
 
@@ -38,13 +38,13 @@ public class JsonNumber extends JsonValue {
         }
     }
 
-    private int string_check(String str) throws JsonSyntaxException {
+    private void string_check(String str) throws JsonSyntaxException {
         int Ecounter = 0;
         int SignCounter = 0;
         int EIndex = 0;
         char first = str.charAt(0);
         if(str.equals("0") || str.equals("-0"))//checking if the number is zero just finish and let the builder act
-            return 1;
+            return;
 
         if ((first != '-') && (!Character.isDigit(first))) {   //we allow only - or number to be the first element
             throw new JsonSyntaxException("First char of number has to be digit or '-'");
@@ -75,12 +75,12 @@ public class JsonNumber extends JsonValue {
             if((Ecounter != 1) || ((sign != '-') && (sign != '+'))){
                 throw new JsonSyntaxException("Sign in the middle of number");
             }
-        }return 1;
+        }
     }
 
     @Override
     //JsonNumber has not get methods at all
-    public JsonValue get(int i) throws JsonQueryException {
+    public Object get(int i) throws JsonQueryException {
         throw new JsonQueryException("JsonNumber cannot resolve method 'get(int)'");
     }
 

@@ -2,13 +2,12 @@ package com.company;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class JsonArray extends JsonValue {
-    private List<JsonValue> a;
+    private ArrayList<JsonValue> a;
 
     public JsonArray() {
-        a = new ArrayList(); //create new Arraylist when call to builder of JsonArray
+        a = new ArrayList<>(); //create new Arraylist when call to builder of JsonArray
     }
 
     public void add(JsonValue val) {
@@ -16,7 +15,7 @@ public class JsonArray extends JsonValue {
     } //add method to JsonArray (same method like Java's ArrayList)
 
     @Override
-    public JsonValue get(int i) throws JsonQueryException {
+    public Object get(int i) throws JsonQueryException {
         if((i>=0) && (i<this.a.size())){ //check if the wanted index is exist in our JsonArray
             return a.get(i); //use 'get' method of Java's Array
         }

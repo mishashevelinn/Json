@@ -15,7 +15,7 @@ public class JsonObject extends JsonValue {
     }
 
     @Override
-    public JsonValue get(int i) throws JsonQueryException {// no index to map so 'get(int)' method wont work
+    public Object get(int i) throws JsonQueryException {// no index to map so 'get(int)' method wont work
         throw new JsonQueryException("JsonObject cannot resolve method 'get(int)'");
 
     }

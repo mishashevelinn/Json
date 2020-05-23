@@ -111,7 +111,7 @@ public class JsonBuilder extends JsonValue {
     }
 
     @Override
-    public JsonValue get(int i) throws JsonQueryException {
+    public Object get(int i) throws JsonQueryException {
         return v.get(i); //get method, works depend on value
     }
 

@@ -8,7 +8,7 @@ public class JsonString extends JsonValue {
     } //JsonString's builder get string and make it JsonString
 
     @Override
-    public JsonValue get(int i) throws JsonQueryException { //string dont have 'get' method
+    public Object get(int i) throws JsonQueryException { //string dont have 'get' method
         throw new JsonQueryException("JsonString cannot resolve method 'get(int)'");
 
     }
