@@ -22,12 +22,10 @@ public class JsonObject extends JsonValue {
 
     @Override
     public JsonValue get(String s) throws JsonQueryException {
-        try{
-            return o.get(s); // 'get' method by key same as Map's get method. (return value)
-        }
-        catch (Exception e){
-            throw new JsonQueryException("No such key"+s);
-        }
+        if (!o.containsKey(s))  //if user tries to access key witch doesn't exists, throw Key Error
+            throw new JsonQueryException("Json Key error");
+        else
+        return o.get(s);
     }
 
     @Override

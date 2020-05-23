@@ -10,12 +10,12 @@ import java.text.ParseException;
 public class Main {
     public static void main( String[] args )
     {
-        JsonBuilder avraham = null;
+        JsonBuilder test = null;
         try
         {
-            avraham = new JsonBuilder( new File( "try"));
-            System.out.println( avraham );
-            System.out.println( avraham.get( "Roni" ));
+            test = new JsonBuilder( new File( "test.txt"));
+            System.out.println( test );
+            System.out.println( test.get( "isAlive" ));
         }
         catch( JsonSyntaxException e )
         {
