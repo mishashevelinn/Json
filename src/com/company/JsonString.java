@@ -5,16 +5,16 @@ public class JsonString extends JsonValue {
 
     public JsonString(String s) {
         this.s = s;
-    }
+    } //JsonString's builder get string and make it JsonString
 
     @Override
-    public JsonValue get(int i) throws JsonQueryException {
+    public JsonValue get(int i) throws JsonQueryException { //string dont have 'get' method
         throw new JsonQueryException("JsonString cannot resolve method 'get(int)'");
 
     }
 
     @Override
-    public JsonValue get(String s) throws JsonQueryException {
+    public JsonValue get(String s) throws JsonQueryException { //string dont have 'get' method
         throw new JsonQueryException("JsonString cannot resolve method 'get(String)'");
 
     }
