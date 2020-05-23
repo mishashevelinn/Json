@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonArray extends JsonValue {
-    public List<JsonValue> a;
+    private List<JsonValue> a;
 
     public JsonArray() {
         a = new ArrayList(); //create new Arraylist when call to builder of JsonArray
