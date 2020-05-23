@@ -15,7 +15,7 @@ public class Main {
         {
             avraham = new JsonBuilder( new File( "try"));
             System.out.println( avraham );
-            System.out.println( avraham.get( "issue" ).get( "Ketura" ).get(2 ) );
+            System.out.println( avraham.get( "Roni" ));
         }
         catch( JsonSyntaxException e )
         {

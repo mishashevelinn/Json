@@ -1,26 +1,16 @@
 package com.company;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-
+//*Recognizes the specific kind of JasonValue from txt file using peek and next methods.
 public class JsonBuilder extends JsonValue {
-    private final CharScanner sc;
-    private JsonValue v;
+    private final CharScanner sc; //we use it for scan methods
+    private final JsonValue v; //
 
 
     public JsonBuilder(File f) throws FileNotFoundException, JsonSyntaxException {
         sc = new CharScanner(f);
-//        try{
         this.v = parseValue();
-//    }
-//        catch (JsonSyntaxException e){    //TODO FIX IT
-//            e.printStackTrace();
-//        }
-//        catch (ParseException e){
-//            throw new JsonSyntaxException("sdfsdf");
-//        }
     }
 
     public JsonValue parseValue() throws JsonSyntaxException {
@@ -114,7 +104,7 @@ public class JsonBuilder extends JsonValue {
         try {
             return new JsonNumber(s);
         }
-        catch (ParseException e){
+        catch (NumberFormatException | ParseException e){
             throw new JsonSyntaxException("Number format error");
         }
     }
@@ -126,8 +116,12 @@ public class JsonBuilder extends JsonValue {
 
     @Override
     public JsonValue get(String s) throws JsonQueryException {
-
-        return v.get(s);
+        try {
+            return v.get(s);
+        }
+        catch (NullPointerException e){
+            throw new JsonQueryException("Key Error");
+        }
     }
 
     @Override

@@ -23,8 +23,13 @@ public class JsonObject extends JsonValue {
     }
 
     @Override
-    public JsonValue get(String s) {
-        return o.get(s);
+    public JsonValue get(String s) throws JsonQueryException {
+        try{
+            return o.get(s);
+        }
+        catch (Exception e){
+            throw new JsonQueryException("No such key"+s);
+        }
     }
 
     @Override

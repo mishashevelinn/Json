@@ -38,19 +38,23 @@ public class JsonNumber extends JsonValue {
         }
     }
 
-    private void string_check(String str) throws JsonSyntaxException {
+    private int string_check(String str) throws JsonSyntaxException {
         int Ecounter = 0;
         int SignCounter = 0;
         int EIndex = 0;
         char first = str.charAt(0);
+        if(str.equals("0") || str.equals("-0"))
+            return 1;
+
         if ((first != '-') && (!Character.isDigit(first))) {
             throw new JsonSyntaxException("First char of number has to be digit or '-'");
         }
-        if (first == '0') {
-            if(str.charAt(1) != '.'){
-                throw new JsonSyntaxException("After '0' expected '.'");
+        if (first == '0' && (str.charAt(1) != '.')) {
+            { throw new JsonSyntaxException("After '0' expected '.'");
             }
         }
+        if ((first == '-') && (str.charAt(1)=='0') && (str.charAt(2)!='.'))
+            throw new JsonSyntaxException("zero in the beggining of whole part");
         for (int i = 1; i < str.length(); i++) {
             char test = str.charAt(i);
             if (Character.isAlphabetic(test) && test!='E' && test!='e'){
@@ -71,7 +75,7 @@ public class JsonNumber extends JsonValue {
             if((Ecounter != 1) || ((sign != '-') && (sign != '+'))){
                 throw new JsonSyntaxException("Sign in the middle of number");
             }
-        }
+        }return 1;
     }
 
     @Override
